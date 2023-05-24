@@ -10,7 +10,7 @@ import * as Location from 'expo-location';
 
 import Navbar from './src/components/navbar/Navbar';
 import Header from './src/components/header/Header';
-import Map from './src/components/Map';
+import Accueil from './src/pages/Accueil';
 
 SplashScreen.preventAutoHideAsync();
 NavigationBar.setBackgroundColorAsync("white");
@@ -90,15 +90,10 @@ export default function App() {
         current={page}
         pageSetter={setPage}
         username="Kevin FEDYNA"
-        includeMap={{onMap, setOnMap}}
+        includeMap={page == "restaurant" ? {onMap, setOnMap} : false}
         searchbarInside={!onMap} />
 
-      {onMap ? <Map initial={{
-        longitude: location.coords.longitude,
-        latitude: location.coords.latitude,
-        longitudeDelta: 0.01,
-        latitudeDelta: 0.01
-        }} /> : <Text>pas sur carte</Text>}
+      <Accueil onMap={onMap} location={location} />
 
       <Navbar current={page} pageSetter={setPage} />
     </SafeAreaView>
