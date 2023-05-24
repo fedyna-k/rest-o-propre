@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, Pressable, View } from 'react-native';
 import { SafeAreaView  } from 'react-native-safe-area-context';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+import MapSwitch from './MapSwitch';
+import SearchBar from './SearchBar';
 
 const header_style = StyleSheet.create({
     container: {
@@ -17,7 +20,7 @@ const header_style = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         flexDirection: "column",
-        backgroundColor: "red", // "#f3f3F3",
+        backgroundColor: "#f3f3F3",
         padding: 15,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
@@ -32,13 +35,12 @@ const header_style = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center"
-    },
-    searchbar: {
-        margin: 10,
     }
 })
 
 export default function Header({pageSetter, current, username, includeMap=true, searchbarInside=true}) {
+    [onMap, setOnMap] = useState(false);
+
     return (
         <SafeAreaView style={header_style.container}>
             <View style={header_style.wrapper}>
@@ -48,13 +50,14 @@ export default function Header({pageSetter, current, username, includeMap=true, 
                         <Text style={{fontFamily: "Regular"}}>{username ?? "User42069"}</Text>
                     </Pressable>
 
-                    {includeMap ? <Text>MAP MISE</Text> : null}
+                    {includeMap ? <MapSwitch toggled={onMap} setToggled={setOnMap}></MapSwitch> : null}
                 </View>
 
-                {searchbarInside ? <Text style={header_style.searchbar}>BARRE DE RECHERCHE AVEC</Text> : null}
+                {searchbarInside ? <SearchBar></SearchBar> : null}
             </View>
-
-            {!searchbarInside ? <Text style={header_style.searchbar}>BARRE DE RECHERCHE SANS</Text> : null}
+            <View style={{paddingHorizontal: 15, width: "100%"}}>
+                {!searchbarInside ? <SearchBar></SearchBar> : null}
+            </View>
         </SafeAreaView>
     );
 }
