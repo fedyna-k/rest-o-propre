@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import { StyleSheet, Text, Pressable, View } from 'react-native';
 import { SafeAreaView  } from 'react-native-safe-area-context';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -14,6 +14,7 @@ const header_style = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         flexDirection: "column",
+        zIndex: 99
     },
     wrapper: {
         width: "100%",
@@ -38,9 +39,7 @@ const header_style = StyleSheet.create({
     }
 })
 
-export default function Header({pageSetter, current, username, includeMap=true, searchbarInside=true}) {
-    [onMap, setOnMap] = useState(false);
-
+export default function Header({pageSetter, current, username, includeMap, searchbarInside=true}) {
     return (
         <SafeAreaView style={header_style.container}>
             <View style={header_style.wrapper}>
@@ -50,13 +49,13 @@ export default function Header({pageSetter, current, username, includeMap=true, 
                         <Text style={{fontFamily: "Regular"}}>{username ?? "User42069"}</Text>
                     </Pressable>
 
-                    {includeMap ? <MapSwitch toggled={onMap} setToggled={setOnMap}></MapSwitch> : null}
+                    {includeMap ? <MapSwitch toggled={includeMap.onMap} setToggled={includeMap.setOnMap}></MapSwitch> : null}
                 </View>
 
-                {searchbarInside ? <SearchBar></SearchBar> : null}
+                {searchbarInside ? <SearchBar inside={true}></SearchBar> : null}
             </View>
             <View style={{paddingHorizontal: 15, width: "100%"}}>
-                {!searchbarInside ? <SearchBar></SearchBar> : null}
+                {!searchbarInside ? <SearchBar inside={false}></SearchBar> : null}
             </View>
         </SafeAreaView>
     );
