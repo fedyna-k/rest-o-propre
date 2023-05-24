@@ -20,7 +20,7 @@ const navbar_button_style = StyleSheet.create({
     }
 })
 
-export default function NavbarButton({name, icon, size, text, selected, stateSetter}) {
+export default function NavbarButton({name, size, text, selected, stateSetter}) {
     const selected_button = StyleSheet.compose(navbar_button_style.link_text, navbar_button_style.selected);
     const unselected_button = StyleSheet.compose(navbar_button_style.link_text, navbar_button_style.unselected);
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import Map from '../components/Map';
+import Map from '../components/map/Map';
 
-import Wrapper from '../components/Wrapper';
-import Section from '../components/Section';
+import Wrapper from '../components/hierarchy/Wrapper';
+import Section from '../components/hierarchy/Section';
 import Title from '../components/text/Title';
 import List from '../components/grids/List';
 import Grid from '../components/grids/Grid';

@@ -9,9 +9,9 @@ const title_style = StyleSheet.create({
     }
 });
 
-export default function Title({children}) {
+export default function Title({style, children}) {
     return (
-        <Text style={title_style.main}>
+        <Text style={StyleSheet.compose(title_style.main, style)}>
             {children}
         </Text>
     );

@@ -13,7 +13,7 @@ const wrapper_style = StyleSheet.create({
     }
 });
 
-export default function InfiniteWrapper({children, onRefresh}) {
+export default function Wrapper({children, onRefresh}) {
     [refreshing, setRefreshing] = useState(false);
 
     function getResheshElement() {

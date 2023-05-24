@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import Bloc from "../Bloc";
+import Bloc from "./Bloc";
 
 const category_style = StyleSheet.create({
     main: {

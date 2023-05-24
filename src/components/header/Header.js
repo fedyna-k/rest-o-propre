@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import { StyleSheet, Text, Pressable, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView  } from 'react-native-safe-area-context';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
@@ -39,15 +39,15 @@ const header_style = StyleSheet.create({
     }
 })
 
-export default function Header({pageSetter, current, username, includeMap, searchbarInside=true}) {
+export default function Header({text, includeMap, searchbarInside=true}) {
     return (
         <SafeAreaView style={header_style.container}>
             <View style={header_style.wrapper}>
                 <View style={header_style.top_wrapper}>
-                    <Pressable style={header_style.link} onPress={() => pageSetter("menu")}>
-                        <MaterialIcons style={{color: current == "menu" ? "#2A2A2A" : "#2A2A2A"}} name="person" size={28} />
-                        <Text style={{fontFamily: "Regular"}}>{username ?? "User42069"}</Text>
-                    </Pressable>
+                    <View style={header_style.link}>
+                        <MaterialIcons style={{color: "#2A2A2A"}} name="person" size={28} />
+                        <Text style={{fontFamily: "Regular"}}>{text ?? "User42069"}</Text>
+                    </View>
 
                     {includeMap ? <MapSwitch toggled={includeMap.onMap} setToggled={includeMap.setOnMap}></MapSwitch> : null}
                 </View>

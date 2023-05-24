@@ -11,6 +11,8 @@ import * as Location from 'expo-location';
 import Navbar from './src/components/navbar/Navbar';
 import Header from './src/components/header/Header';
 import Accueil from './src/pages/Accueil';
+import Notes from './src/pages/Notes';
+import Favoris from './src/pages/Favoris';
 
 SplashScreen.preventAutoHideAsync();
 NavigationBar.setBackgroundColorAsync("white");
@@ -63,7 +65,7 @@ export default function App() {
   }, [page]);
 
   BackHandler.addEventListener("hardwareBackPress", () => {
-    if (page != "home") {
+    if (page != "restaurant") {
       setPage(pageStack.at(-2));
       return true;
     }
@@ -87,13 +89,16 @@ export default function App() {
       style={{ flex: 1, alignItems: 'center', justifyContent: "space-between", backgroundColor: "#e6e6e6" }}
       onLayout={onLayoutRootView}>
       <Header
-        current={page}
-        pageSetter={setPage}
-        username="Kevin FEDYNA"
+        text="Kevin FEDYNA"
         includeMap={page == "restaurant" ? {onMap, setOnMap} : false}
         searchbarInside={!onMap} />
 
-      <Accueil onMap={onMap} location={location} />
+      {{
+        "restaurant": (<Accueil onMap={onMap} location={location} />),
+        "star": (<Notes/>),
+        "favorite": (<Favoris/>)
+      }[page]}
+      
 
       <Navbar current={page} pageSetter={setPage} />
     </SafeAreaView>

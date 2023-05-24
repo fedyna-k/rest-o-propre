@@ -7,9 +7,9 @@ const text_style = StyleSheet.create({
     }
 });
 
-export default function NormalText({children}) {
+export default function NormalText({style, children}) {
     return (
-        <Text style={text_style.main}>
+        <Text style={StyleSheet.compose(text_style.main, style)}>
             {children}
         </Text>
     );
