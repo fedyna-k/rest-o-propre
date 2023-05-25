@@ -7,6 +7,7 @@ import Form from "../components/form/Form";
 import Input from "../components/form/Input";
 import Title from "../components/text/Title";
 import NormalText from "../components/text/NormalText";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
@@ -45,6 +46,9 @@ export default function Connect({page, onLayout}) {
     }
 
     useEffect(() => {
+        if (step.length == 1) {
+            setTotal({});
+        }
         setForm(step.reduce((obj, key) => obj[key], steps).form);
     }, [step]);
 
@@ -84,7 +88,14 @@ export default function Connect({page, onLayout}) {
                                     secureTextEntry: true,
                                     defaultValue: total.password ?? ""
                                 }}/>
-                            <Button action={goToNext("user", ["email", "password"])} width="50%" text="Suivant"/>
+                            <Input name="passconfirm" getter={setData} text="Confirmer mot de passe"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "new-password",
+                                    secureTextEntry: true,
+                                    defaultValue: total.passconfirm ?? ""
+                                }}/>
+                            <Button action={goToNext("user", ["email", "password", "passconfirm"])} width="50%" text="Suivant"/>
                         </Form>),
                 "user": {
                     "form": (
@@ -114,8 +125,8 @@ export default function Connect({page, onLayout}) {
                                 }}/>
                             <Button action={goToNext("user", ["first", "last", "pseudo", "age"])} width="50%" text="Suivant"/>
                         </Form>),
-                    "user": {
-                        "form": (
+                "user": {
+                    "form": (
                         <Form title="Inscription" stepHandler={{step, setStep}}>
                             <Title>Conditions générales d'utilisations</Title>
                             <NormalText style={{marginHorizontal: 10}}>En appuyant sur "S'inscrire", je donne mon consentement pour que l'entièreté de mes données soit utilisée à des fins commerciales et d'enrichissement du propriétaire de Rest'o'Propre.</NormalText>
@@ -125,11 +136,104 @@ export default function Connect({page, onLayout}) {
                     }
                 }},
                 "pro": {
-
+                    "form": (
+                        <Form title="Inscription" stepHandler={{step, setStep}}>
+                            <Input name="email" getter={setData} text="E-mail"
+                                props={{
+                                    inputMode: "email",
+                                    autoComplete: "email",
+                                    defaultValue: total.email ?? ""
+                                }}/>
+                            <Input name="password" getter={setData} text="Mot de passe"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "new-password",
+                                    secureTextEntry: true,
+                                    defaultValue: total.password ?? ""
+                                }}/>
+                            <Input name="passconfirm" getter={setData} text="Confirmer mot de passe"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "new-password",
+                                    secureTextEntry: true,
+                                    defaultValue: total.passconfirm ?? ""
+                                }}/>
+                            <Button action={goToNext("pro", ["email", "password", "passconfirm"])} width="50%" text="Suivant"/>
+                        </Form>),
+                "pro": {
+                    "form": (
+                        <Form title="Inscription" stepHandler={{step, setStep}}>
+                            <Input name="name" getter={setData} text="Nom de l'établissement"
+                                props={{
+                                    inputMode: "text",
+                                    defaultValue: total.name ?? ""
+                                }}/>
+                            <Input name="siret" getter={setData} text="N° Siret"
+                                props={{
+                                    inputMode: "text",
+                                    defaultValue: total.siret ?? ""
+                                }}/>
+                            <Input name="adress_ad" getter={setData} text="Adresse"
+                                props={{
+                                    inputMode: "text",
+                                    defaultValue: total.adress_ad ?? ""
+                                }}/>
+                            <Input name="adress_po" getter={setData} text="Code postal"
+                                props={{
+                                    inputMode: "text",
+                                    defaultValue: total.adress_po ?? ""
+                                }}/>
+                            <Input name="adress_co" getter={setData} text="Pays"
+                                props={{
+                                    inputMode: "text",
+                                    defaultValue: total.adress_co ?? ""
+                                }}/>
+                            <Button action={goToNext("pro", ["name", "siret", "adress_ad", "adress_po", "adress_co"])} width="50%" text="Suivant"/>
+                        </Form>),
+                "pro": {
+                    "form": (
+                        <Form title="Inscription" stepHandler={{step, setStep}}>
+                            <Input name="first_prop" getter={setData} text="Prénom"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "given-name",
+                                    defaultValue: total.first_prop ?? ""
+                                }}/>
+                            <Input name="last_prop" getter={setData} text="Nom"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "family-name",
+                                    defaultValue: total.last_prop ?? ""
+                                }}/>
+                            <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                                <NormalText>Pièce d'identité</NormalText>
+                                <MaterialIcons name="upload-file" size={48}/>
+                            </View>
+                            <Button action={goToNext("pro", ["first_prop", "last_prop"])} width="50%" text="S'inscrire"/>
+                        </Form>),
+                    }
+                    }
                 }
             },
             "login": {
-                "form": (<View><Button text="Test2"/></View>)
+                "form": (
+                <Form title="Connexion" stepHandler={{step, setStep}}>
+                    <Input name="email" getter={setData} text="E-mail"
+                        props={{
+                            inputMode: "email",
+                            autoComplete: "email",
+                            defaultValue: ""
+                        }}/>
+                    <Input name="password" getter={setData} text="Mot de passe"
+                        props={{
+                            inputMode: "text",
+                            autoComplete: "new-password",
+                            secureTextEntry: true,
+                            defaultValue: ""
+                        }}/>
+                    <NormalText>Mot de passe oublié ?</NormalText>
+                    <Button action={goToNext("user", ["email", "password"])} width="50%" text="Connexion"/>
+                </Form>)
             }
         }
     }
