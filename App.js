@@ -17,6 +17,15 @@ import Favoris from './src/pages/Favoris';
 import Connect from './src/pages/Connect';
 import Login from './src/pages/Login'; // Importation du composant Login depuis le fichier ./src/pages/Login
 import Register from './src/pages/Register';
+import UsagerRegister from './src/pages/UsagerRegister';
+import UsagerRegisterP2 from './src/pages/UsagerRegisterP2';
+import ProfessionalRegister from './src/pages/ProfessionalRegister';
+import ProfessionalRegisterP2 from './src/pages/ProfessionalRegisterP2';
+import ProfessionalRegisterP3 from './src/pages/ProfessionalRegisterP3';
+
+
+
+
 
 
 SplashScreen.preventAutoHideAsync();
@@ -32,6 +41,17 @@ export default function App() {
   const [onMap, setOnMap] = useState(false);
   const [location, setLocation] = useState(null);
   const [pageRegister, setPageRegister] = useState("register");
+  const [pageProfessionalRegister, setPageProfessionalRegister] = useState("professionalRegister");
+  const [pageProfessionalRegisterP2, setPageProfessionalRegisterP2] = useState("professionalRegisterP2");
+  const [pageProfessionalRegisterP3, setPageProfessionalRegisterP3] = useState("professionalRegisterP3");
+  const [pageUsagerRegister, setPageUsagerRegister] = useState("usagerRegister");
+  const [pageUsagerRegisterP2, setPageUsagerRegisterP2] = useState("usagerRegisterP2");
+
+
+
+
+
+
 
 
   useEffect(() => {
@@ -108,15 +128,39 @@ export default function App() {
   }
   if (page == "accueil") {
     return (
-      <Accueil page={page} onLayout={onLayoutRootView} />
+      <Accueil page={accueil} onLayout={onLayoutRootView} />
     );
   }
   if (page == "register") {
     return (
-      <Register page={page} onLayout={onLayoutRootView} />
+      <Register page={register} onLayout={onLayoutRootView} />
     );
   }
-  
+  if (page == "usagerRegister") {
+    return (
+      <UsagerRegister page={usagerRegister} onLayout={onLayoutRootView} />
+    );
+  }
+  if (page == "usagerRegisterP2") {
+    return (
+      <UsagerRegisterP2 page={usagerRegisterP2} onLayout={onLayoutRootView} />
+    );
+  }
+  if (page == "professionalRegister") {
+    return (
+      <ProfessionalRegister page={ProfessionalRegister} onLayout={onLayoutRootView} />
+    );
+  }
+  if (page == "professionalRegisterP2") {
+    return (
+      <ProfessionalRegisterP2 page={ProfessionalRegisterP2} onLayout={onLayoutRootView} />
+    );
+  }
+  if (page == "professionalRegisterP3") {
+    return (
+      <ProfessionalRegisterP3 page={ProfessionalRegisterP3} onLayout={onLayoutRootView} />
+    );
+  }
   const goToLoginPage = () => {
     setPage("Login");
   };

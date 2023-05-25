@@ -15,12 +15,12 @@ const goToProfessionalRegister3 = () => {
     useNavigation.navigate('ProfessionalRegister3'); // Remplacez 'Dashboard' par le nom de votre prochaine page
   };
 
-export default function UsagerRegisterP2({ page, onLayout }) {
+export default function ProfessionalRegisterP2({ page, onLayout }) {
     const [step, setStep] = useState([""]);
     const [form, setForm] = useState(<></>);
     const steps = {
         "": {
-            "usagerRegisterP2": (
+            "professionalRegisterP2": (
                 <View style={{ width: "100%", gap: 20, marginBottom: 100, padding: 20 }}>
                     <TextInput /> {/* Utilisation du composant de zone de texte pour le Nom de L'etablissement */}
                     <TextInput /> {/* Utilisation du composant de zone de texte pour le Numero de Siret */}
