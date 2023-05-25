@@ -71,6 +71,7 @@ export default function App() {
 
   BackHandler.addEventListener("hardwareBackPress", () => {
     if (page == "connect") return true;
+    if (page == "login") return true;
 
     if (page != "restaurant") {
       setPage(pageStack.at(-2));
@@ -91,16 +92,21 @@ export default function App() {
     return null;
   }
 
-  // if (page == "connect") {
-  //   return (
-  //     <Connect page={page} onLayout={onLayoutRootView} />
-  //   );
-  // }
-  if (page === "connect") {
-    return <Connect page={page} onLayout={onLayoutRootView} />;
-  } else if (page === "Login") {
-    return <LoginPage />;
+  if (page == "connect") {
+    return (
+      <Connect page={page} onLayout={onLayoutRootView} />
+    );
   }
+  if (page == "Login") {
+    return (
+      <Login page={page} onLayout={onLayoutRootView} />
+    );
+  }
+  // if (page === "connect") {
+  //   return <Connect page={page} onLayout={onLayoutRootView} />;
+  // } else if (page === "Login") {
+  //   return <LoginPage />;
+  // }
   
   return (
     <SafeAreaView

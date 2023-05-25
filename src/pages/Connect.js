@@ -26,13 +26,9 @@ export default function Connect({page, onLayout}) {
 
     function goToNext(next) {
         return () => {
-          if (next === 'login') {
-            setPage('login');
-            return;
-          }
-          setStep(step.concat([next]));
+            setStep(step.concat([next]));
         };
-      }
+    }
       
 
     useEffect(() => {
