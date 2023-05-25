@@ -15,6 +15,12 @@ import Notes from './src/pages/Notes';
 import Favoris from './src/pages/Favoris';
 import Connect from './src/pages/Connect';
 
+import NavbarPro from './src/components/navbar/NavbarPro';
+import HeaderPro from './src/components/header/HeaderPro';
+import AccueilPro from './src/pages/AccueilPro';
+import Suivi from './src/pages/Suivi';
+import Formations from './src/pages/Formation';
+
 SplashScreen.preventAutoHideAsync();
 NavigationBar.setBackgroundColorAsync("white");
 NavigationBar.setButtonStyleAsync("dark");
@@ -22,8 +28,9 @@ StatusBar.setStatusBarBackgroundColor("#f3f3f3")
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [page, setPage] = useState("connect");
+  const [page, setPage] = useState("restaurant");
   const [pageStack, setStack] = useState(["restaurant"]);
+  const [isPro, setIsPro] = useState(true);
   const [onMap, setOnMap] = useState(false);
   const [location, setLocation] = useState(null);
 
@@ -97,19 +104,27 @@ export default function App() {
     <SafeAreaView
       style={{ flex: 1, alignItems: 'center', justifyContent: "space-between", backgroundColor: "#e6e6e6" }}
       onLayout={onLayoutRootView}>
-      <Header
-        text="Kevin FEDYNA"
-        includeMap={page == "restaurant" ? {onMap, setOnMap} : false}
-        searchbarInside={!onMap} />
-
+      {isPro ?
+        <HeaderPro
+          text={{"restaurant": "Bienvenue !", "show-chart": "Suivi", "school": "Formations", "person": "Mon compte"}[page]}
+          includeSearch={page == "show-chart" || page == "school"}
+          placeholder={{"show-chart": "Bilan financier, ajout aliment...", "school": "Respect de la qualité, dressage"}[page]} /> :
+        <Header
+          text="Kevin FEDYNA"
+          includeMap={page == "restaurant" ? {onMap, setOnMap} : false}
+          searchbarInside={!onMap} />
+      }
+      
       {{
-        "restaurant": (<Accueil onMap={onMap} location={location} />),
-        "star": (<Notes/>),
-        "favorite": (<Favoris/>)
+        "restaurant": isPro ? <AccueilPro /> : <Accueil onMap={onMap} location={location} />,
+        "star": (<Notes />),
+        "favorite": (<Favoris />),
+        "show-chart": <Suivi />,
+        "school": <Formations />
       }[page]}
       
 
-      <Navbar current={page} pageSetter={setPage} />
+      {isPro ? <NavbarPro current={page} pageSetter={setPage} /> : <Navbar current={page} pageSetter={setPage} />}
     </SafeAreaView>
   );
 }

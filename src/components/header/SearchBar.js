@@ -25,7 +25,7 @@ const searchbar_style = StyleSheet.create({
     }
 });
 
-export default function SearchBar({inside}) {
+export default function SearchBar({inside, placeholder}) {
     return (
         <View style={
             inside ? 
@@ -35,7 +35,7 @@ export default function SearchBar({inside}) {
             <MaterialIcons name="search" size={28} style={searchbar_style.search} />
             <TextInput
                 style={searchbar_style.bar}
-                placeholder="Restaurant, nourriture..."
+                placeholder={placeholder ?? "Restaurant, nourriture..."}
             />
         </View>
     );
