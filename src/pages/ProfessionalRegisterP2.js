@@ -3,32 +3,34 @@ import { View, ImageBackground, Image, TextInputComponent } from "react-native";
 import { TextInput } from 'react-native';
 import { BackHandler } from 'react-native';
 import Button from "../components/form/Button";
-import EmailInput from "../components/text/EmailInput"; // Chemin vers EmailInput.js
-import MdpInput from "../components/text/MdpInput"; // Chemin vers MdpInput.js
+import TextInput from "../components/text/TextInput"; 
+import AgeInput from "../components/text/AgeInput"; 
 import { useNavigation } from '@react-navigation/native';
 
 const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
 
 
-const goToUsagerRegister2 = () => {
-    navigation.navigate('ProfessionalRegister2'); // Remplacez 'Dashboard' par le nom de votre prochaine page
-};
+const goToProfessionalRegister3 = () => {
+    navigation.navigate('ProfessionalRegister3'); // Remplacez 'Dashboard' par le nom de votre prochaine page
+  };
 
-export default function Login({ page, onLayout }) {
+export default function UsagerRegisterP2({ page, onLayout }) {
     const [step, setStep] = useState([""]);
     const [form, setForm] = useState(<></>);
     const navigation = useNavigation();
     const steps = {
         "": {
-            "login": (
+            "usagerRegisterP2": (
                 <View style={{ width: "100%", gap: 20, marginBottom: 100, padding: 20 }}>
-                    <EmailInput /> {/* Utilisation du composant de zone de texte pour l'e-mail */}
-                    <MdpInput /> {/* Utilisation du composant de zone de texte pour le mot de passe */}
-                    <Button action={goToUsagerRegister2} text="Page UsagerRegister" />
+                    <TextInput /> {/* Utilisation du composant de zone de texte pour le Nom de L'etablissement */}
+                    <TextInput /> {/* Utilisation du composant de zone de texte pour le Numero de Siret */}
+                    <TextInput /> {/* Utilisation du composant de zone de texte pour l'Adresse' */}
+                    <TextInput /> {/* Utilisation du composant de zone de texte pour le code Postal' */}
+                    <TextInput /> {/* Utilisation du composant de zone de texte pour le Pays' */}
+                    <Button action={goToProfessionalRegister3} text="Suivant" />
                 </View>
             ),
-            // "MdpOublier": (<View><Button text="Test"/></View>)
         }
     };
 

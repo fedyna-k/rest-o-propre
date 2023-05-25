@@ -19,6 +19,9 @@ const Connect = ({ page, onLayout }) => {
   const goToRegisterPage = () => {
     navigation.navigate('Register'); // Remplacez 'Dashboard' par le nom de votre prochaine page
   };
+  const goToNext = (next) => () => {
+    setStep((prevStep) => [...prevStep, next]);
+  };
   BackHandler.addEventListener("hardwareBackPress", () => {
     if (page !== "connect") return true;
 
@@ -31,9 +34,7 @@ const Connect = ({ page, onLayout }) => {
     return true;
   });
 
-  const goToNext = (next) => () => {
-    setStep((prevStep) => [...prevStep, next]);
-  };
+
 
   useEffect(() => {
     const currentStep = steps[step.join(".")];
@@ -50,7 +51,7 @@ const Connect = ({ page, onLayout }) => {
     "": {
       form: (
         <View style={{ width: "100%", gap: 20, marginBottom: 100, padding: 20 }}>
-          <Button action={goToNext("register")} text="S'inscrire" theme="light" />
+          <Button action={goToRegisterPage} text="S'inscrire" theme="light" />
           <Button action={goToLoginPage} text="Se connecter" />
         </View>
       ),

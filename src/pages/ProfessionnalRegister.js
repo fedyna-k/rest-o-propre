@@ -10,33 +10,22 @@ import { useNavigation } from '@react-navigation/native';
 const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
 
-const GoToAccueil = () => {
-    navigation.navigate('Accueil'); // Remplacez 'Dashboard' par le nom de votre prochaine page
-};
+const goToProfessionalRegister2 = () => {
+    navigation.navigate('ProfessionalRegister2'); // Remplacez 'Dashboard' par le nom de votre prochaine page
+  };
 
 
-export default function Login({ page, onLayout }) {
+export default function ProfessionalRegister({ page, onLayout }) {
     const [step, setStep] = useState([""]);
     const [form, setForm] = useState(<></>);
     const navigation = useNavigation();
     const steps = {
         "": {
-            "login": (
+            "professionalRegister": (
                 <View style={{ width: "100%", gap: 20, marginBottom: 100, padding: 20 }}>
                     <EmailInput /> {/* Utilisation du composant de zone de texte pour l'e-mail */}
                     <MdpInput /> {/* Utilisation du composant de zone de texte pour le mot de passe */}
-                    <Button action={GoToAccueil} text="Se connecter" />
-                    <Button action={goToNext("MdpOublier")} text="Mot de passe oublié" theme="light" />
-                    <CheckBox
-                        value={false} // Définissez la valeur initiale de la boîte à cocher
-                        onValueChange={(value) => {
-                            if(value==false) value==true;
-                            else if(value==true) value ==false;
-                            console.log('Rester connecté :', value);
-                        }}
-                        action = {onValueChange}
-                    />
-
+                    <Button action={goToProfessionalRegister2} text="Suivant" />
                 </View>
             ),
             // "MdpOublier": (<View><Button text="Test"/></View>)
