@@ -16,6 +16,8 @@ import Notes from './src/pages/Notes';
 import Favoris from './src/pages/Favoris';
 import Connect from './src/pages/Connect';
 import Login from './src/pages/Login'; // Importation du composant Login depuis le fichier ./src/pages/Login
+import Register from './src/pages/Register';
+
 
 SplashScreen.preventAutoHideAsync();
 NavigationBar.setBackgroundColorAsync("white");
@@ -25,10 +27,11 @@ StatusBar.setStatusBarBackgroundColor("#f3f3f3")
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [page, setPage] = useState("connect");
-  const [pagelogin, setPagelogin] = useState("login");
+  const [pageLogin, setPageLogin] = useState("login");
   const [pageStack, setStack] = useState(["restaurant"]);
   const [onMap, setOnMap] = useState(false);
   const [location, setLocation] = useState(null);
+  const [pageRegister, setPageRegister] = useState("register");
 
 
   useEffect(() => {
@@ -98,14 +101,26 @@ export default function App() {
       <Connect page={page} onLayout={onLayoutRootView} />
     );
   }
-  const goToLoginPage = () => {
-    setPage("Login");
-  };
   if (page == "Login") {
     return (
       <Login page={page} onLayout={onLayoutRootView} />
     );
   }
+  if (page == "accueil") {
+    return (
+      <Accueil page={page} onLayout={onLayoutRootView} />
+    );
+  }
+  if (page == "register") {
+    return (
+      <Register page={page} onLayout={onLayoutRootView} />
+    );
+  }
+  
+  const goToLoginPage = () => {
+    setPage("Login");
+  };
+ 
  
   
   // if (page === "connect") {

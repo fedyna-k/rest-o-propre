@@ -6,10 +6,4 @@ const EmailInput = () => {
   );
 };
 
-const PasswordInput = () => {
-  return (
-    <input type="password" placeholder="Enter your password" />
-  );
-};
-
 export { EmailInput};

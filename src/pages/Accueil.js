@@ -1,6 +1,5 @@
 import React from 'react';
 import Map from '../components/map/Map';
-
 import Wrapper from '../components/hierarchy/Wrapper';
 import Section from '../components/hierarchy/Section';
 import Title from '../components/text/Title';
