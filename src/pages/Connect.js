@@ -1,14 +1,21 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { View, ImageBackground, Image} from "react-native";
+import React, { useEffect, useState } from "react";
+import { ImageBackground, Image, View, Keyboard } from "react-native";
 import { BackHandler } from 'react-native';
+
 import Button from "../components/form/Button";
+import Form from "../components/form/Form";
+import Input from "../components/form/Input";
+import Title from "../components/text/Title";
+import NormalText from "../components/text/NormalText";
 
 const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
 
 export default function Connect({page, onLayout}) {
-    [step, setStep] = useState([""]);
-    [form, setForm] = useState(<></>);
+    const [step, setStep] = useState([""]);
+    const [form, setForm] = useState(<></>);
+    const [data, setData] = useState({});
+    const [total, setTotal] = useState({});
 
     BackHandler.addEventListener("hardwareBackPress", () => {
         if (page != "connect") return true;
@@ -22,8 +29,17 @@ export default function Connect({page, onLayout}) {
         return true;
     });
 
-    function goToNext(next) {
+    function goToNext(next, dependecies) {
         return () => {
+            if (dependecies != undefined) {
+                for (let dependecy of dependecies) {
+                    if (total[dependecy] == "" || total[dependecy] == undefined) {
+                        return;
+                    }
+                }
+            }
+
+            Keyboard.dismiss();
             setStep(step.concat([next]));
         };
     }
@@ -31,6 +47,13 @@ export default function Connect({page, onLayout}) {
     useEffect(() => {
         setForm(step.reduce((obj, key) => obj[key], steps).form);
     }, [step]);
+
+    useEffect(() => {
+        if (data.key != undefined) {
+            total[data.key] = data.value;
+            setTotal(total);
+        }
+    }, [data]);
 
     const steps = {
         "": {
@@ -40,7 +63,70 @@ export default function Connect({page, onLayout}) {
                     <Button action={goToNext("login")} text="Se connecter"/>
                 </View>),
             "register": {
-                "form": (<View><Button text="Test"/></View>)
+                "form": (
+                    <Form title="Inscription" stepHandler={{step, setStep}}>
+                        <Button action={goToNext("user")} text="Compte bon mangeur"/>
+                        <Button action={goToNext("pro")} text="Compte restaurateur"/>
+                    </Form>),
+                "user": {
+                    "form": (
+                        <Form title="Inscription" stepHandler={{step, setStep}}>
+                            <Input name="email" getter={setData} text="E-mail"
+                                props={{
+                                    inputMode: "email",
+                                    autoComplete: "email",
+                                    defaultValue: total.email ?? ""
+                                }}/>
+                            <Input name="password" getter={setData} text="Mot de passe"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "new-password",
+                                    secureTextEntry: true,
+                                    defaultValue: total.password ?? ""
+                                }}/>
+                            <Button action={goToNext("user", ["email", "password"])} width="50%" text="Suivant"/>
+                        </Form>),
+                "user": {
+                    "form": (
+                        <Form title="Inscription" stepHandler={{step, setStep}}>
+                            <Input name="first" getter={setData} text="Prénom"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "given-name",
+                                    defaultValue: total.first ?? ""
+                                }}/>
+                            <Input name="last" getter={setData} text="Nom"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "family-name",
+                                    defaultValue: total.last ?? ""
+                                }}/>
+                            <Input name="pseudo" getter={setData} text="Pseudo"
+                                props={{
+                                    inputMode: "text",
+                                    autoComplete: "username",
+                                    defaultValue: total.pseudo ?? ""
+                                }}/>
+                            <Input name="age" getter={setData} text="Age"
+                                props={{
+                                    inputMode: "numeric",
+                                    defaultValue: total.age ?? ""
+                                }}/>
+                            <Button action={goToNext("user", ["first", "last", "pseudo", "age"])} width="50%" text="Suivant"/>
+                        </Form>),
+                    "user": {
+                        "form": (
+                        <Form title="Inscription" stepHandler={{step, setStep}}>
+                            <Title>Conditions générales d'utilisations</Title>
+                            <NormalText style={{marginHorizontal: 10}}>En appuyant sur "S'inscrire", je donne mon consentement pour que l'entièreté de mes données soit utilisée à des fins commerciales et d'enrichissement du propriétaire de Rest'o'Propre.</NormalText>
+                            <NormalText style={{marginHorizontal: 10}}>J'accepte également le reste des conditions que je ne m'embêterai jamais à lire, parce que quand même, personne ne lit ces règles... D'ailleurs, pour l'annecdote, quand on prend une photo sur Snapchat, ils ont le droit de la sauvegarder sur leur serveurs même si vous la supprimez.</NormalText>
+                            <Button action={goToNext("user")} width="50%" text="S'inscrire"/>
+                        </Form>)
+                    }
+                }},
+                "pro": {
+
+                }
             },
             "login": {
                 "form": (<View><Button text="Test2"/></View>)
@@ -54,7 +140,7 @@ export default function Connect({page, onLayout}) {
                 source={background_img}
                 resizeMode="cover"
                 style={{ flex: 1, alignItems: 'center', justifyContent: "space-between"}}>
-                    <Image source={logo} style={{height: "40%", aspectRatio: 1}}/>
+                    <Image source={logo} style={{maxHeight: "40%", aspectRatio: 1}}/>
                     
                     {form}
             </ImageBackground>
