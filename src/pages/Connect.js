@@ -1,7 +1,9 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { View, ImageBackground, Image} from "react-native";
+import { TextInput } from 'react-native';
 import { BackHandler } from 'react-native';
 import Button from "../components/form/Button";
+import Login from './Login';
 
 const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
@@ -24,9 +26,14 @@ export default function Connect({page, onLayout}) {
 
     function goToNext(next) {
         return () => {
-            setStep(step.concat([next]));
+          if (next === 'login') {
+            setPage('login');
+            return;
+          }
+          setStep(step.concat([next]));
         };
-    }
+      }
+      
 
     useEffect(() => {
         setForm(step.reduce((obj, key) => obj[key], steps).form);
@@ -42,9 +49,7 @@ export default function Connect({page, onLayout}) {
             "register": {
                 "form": (<View><Button text="Test"/></View>)
             },
-            "login": {
-                "form": (<View><Button text="Test2"/></View>)
-            }
+            "login":  <Login /> 
         }
     }
 

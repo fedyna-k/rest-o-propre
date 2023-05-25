@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { TextInput } from 'react-native';
 import { BackHandler } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -14,6 +15,7 @@ import Accueil from './src/pages/Accueil';
 import Notes from './src/pages/Notes';
 import Favoris from './src/pages/Favoris';
 import Connect from './src/pages/Connect';
+import Login from './src/pages/Login'; // Importation du composant Login depuis le fichier ./src/pages/Login
 
 SplashScreen.preventAutoHideAsync();
 NavigationBar.setBackgroundColorAsync("white");
@@ -51,6 +53,8 @@ export default function App() {
       } finally {
         setAppIsReady(true);
       }
+      
+      
     }
 
     prepare();
@@ -87,12 +91,17 @@ export default function App() {
     return null;
   }
 
-  if (page == "connect") {
-    return (
-      <Connect page={page} onLayout={onLayoutRootView} />
-    );
+  // if (page == "connect") {
+  //   return (
+  //     <Connect page={page} onLayout={onLayoutRootView} />
+  //   );
+  // }
+  if (page === "connect") {
+    return <Connect page={page} onLayout={onLayoutRootView} />;
+  } else if (page === "Login") {
+    return <LoginPage />;
   }
-
+  
   return (
     <SafeAreaView
       style={{ flex: 1, alignItems: 'center', justifyContent: "space-between", backgroundColor: "#e6e6e6" }}
