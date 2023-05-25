@@ -25,6 +25,7 @@ StatusBar.setStatusBarBackgroundColor("#f3f3f3")
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [page, setPage] = useState("connect");
+  const [pagelogin, setPagelogin] = useState("login");
   const [pageStack, setStack] = useState(["restaurant"]);
   const [onMap, setOnMap] = useState(false);
   const [location, setLocation] = useState(null);
@@ -97,11 +98,16 @@ export default function App() {
       <Connect page={page} onLayout={onLayoutRootView} />
     );
   }
+  const goToLoginPage = () => {
+    setPage("Login");
+  };
   if (page == "Login") {
     return (
       <Login page={page} onLayout={onLayoutRootView} />
     );
   }
+ 
+  
   // if (page === "connect") {
   //   return <Connect page={page} onLayout={onLayoutRootView} />;
   // } else if (page === "Login") {
