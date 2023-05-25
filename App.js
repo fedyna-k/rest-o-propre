@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, BackHandler } from 'react-native';
+import { BackHandler } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import * as NavigationBar from 'expo-navigation-bar';
@@ -13,6 +13,7 @@ import Header from './src/components/header/Header';
 import Accueil from './src/pages/Accueil';
 import Notes from './src/pages/Notes';
 import Favoris from './src/pages/Favoris';
+import Connect from './src/pages/Connect';
 
 SplashScreen.preventAutoHideAsync();
 NavigationBar.setBackgroundColorAsync("white");
@@ -21,7 +22,7 @@ StatusBar.setStatusBarBackgroundColor("#f3f3f3")
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [page, setPage] = useState("restaurant");
+  const [page, setPage] = useState("connect");
   const [pageStack, setStack] = useState(["restaurant"]);
   const [onMap, setOnMap] = useState(false);
   const [location, setLocation] = useState(null);
@@ -65,6 +66,8 @@ export default function App() {
   }, [page]);
 
   BackHandler.addEventListener("hardwareBackPress", () => {
+    if (page == "connect") return true;
+
     if (page != "restaurant") {
       setPage(pageStack.at(-2));
       return true;
@@ -82,6 +85,12 @@ export default function App() {
 
   if (!appIsReady) {
     return null;
+  }
+
+  if (page == "connect") {
+    return (
+      <Connect page={page} onLayout={onLayoutRootView} />
+    );
   }
 
   return (
