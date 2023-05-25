@@ -10,23 +10,24 @@ import { useNavigation } from '@react-navigation/native';
 const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
 
-const goToUsagerRegister3 = () => {
-    useNavigation.navigate('UsagerRegisterP3'); // Remplacez 'Dashboard' par le nom de votre prochaine page
+const goToProfessionalRegisterP4 = () => {
+    useNavigation.navigate('professionalRegisterP4'); 
 };
 
 
-export default function UsagerRegisterP2({ page, onLayout }) {
+export default function ProfessionalRegisterP3({ page, onLayout }) {
     const [step, setStep] = useState([""]);
     const [form, setForm] = useState(<></>);
     const steps = {
         "": {
-            "usagerRegisterP2": (
+            "professionalRegisterP3": (
                 <View style={{ width: "100%", gap: 20, marginBottom: 100, padding: 20 }}>
                     <TextInput /> {/* Utilisation du composant de zone de texte pour le Prenom */}
                     <TextInput /> {/* Utilisation du composant de zone de texte pour le Nom */}
                     <TextInput /> {/* Utilisation du composant de zone de texte pour le Pseudo */}
                     <AgeInput /> {/* Utilisation du composant de zone de texte pour l'Age */}
-                    <Button action={goToUsagerRegister3} text="Suivant" />
+                    <Button action={goToProfessionalRegisterP4} text="Suivant" />
+
                 </View>
             ),
         }

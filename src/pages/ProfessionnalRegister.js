@@ -11,14 +11,13 @@ const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
 
 const goToProfessionalRegister2 = () => {
-    navigation.navigate('ProfessionalRegister2'); // Remplacez 'Dashboard' par le nom de votre prochaine page
+    useNavigation.navigate('ProfessionalRegister2'); // Remplacez 'Dashboard' par le nom de votre prochaine page
   };
 
 
 export default function ProfessionalRegister({ page, onLayout }) {
     const [step, setStep] = useState([""]);
     const [form, setForm] = useState(<></>);
-    const navigation = useNavigation();
     const steps = {
         "": {
             "professionalRegister": (

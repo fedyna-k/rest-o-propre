@@ -12,13 +12,12 @@ const logo = require("../../assets/images/adaptive-icon.png");
 
 
 const goToUsagerRegister2 = () => {
-    navigation.navigate('ProfessionalRegister2'); // Remplacez 'Dashboard' par le nom de votre prochaine page
+    useNavigation.navigate('ProfessionalRegister2'); // Remplacez 'Dashboard' par le nom de votre prochaine page
 };
 
 export default function Login({ page, onLayout }) {
     const [step, setStep] = useState([""]);
     const [form, setForm] = useState(<></>);
-    const navigation = useNavigation();
     const steps = {
         "": {
             "login": (

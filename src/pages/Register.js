@@ -11,11 +11,11 @@ const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
 
 
-const goToProfessionnalRegisterPage = () => {
-    navigation.navigate('ProfessionnalRegister'); // Remplacez 'Dashboard' par le nom de votre prochaine page
+const goToProfessionnalRegister = () => {
+    useNavigation.navigate('ProfessionnalRegister'); 
 };
-const goToUsagerRegisterPage = () => {
-    navigation.navigate('UsagerRegister'); // Remplacez 'Dashboard' par le nom de votre prochaine page
+const goToUsagerRegister = () => {
+    useNavigation.navigate('UsagerRegister');
 };
 export default function Register({ page, onLayout }) {
   const [step, setStep] = useState([""]);
