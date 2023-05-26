@@ -25,6 +25,10 @@ const images = [
 
 export default function List({items, pageSetter}) {
     function createChild({item}) {
+        if (item.note_soin) {
+            return (<Bloc key={Math.random()} style={category_style.bloc} isBig={false} text={item.name} notes={{note_proprete:item.note_proprete, note_soin: item.note_soin, note_vaisselle: item.note_vaisselle}}></Bloc>);
+        }
+
         return (<Bloc key={Math.random()} style={category_style.bloc} backgroundImage={images[item.type - 1]} note={item.note} text={item.name}></Bloc>);
     }
 

@@ -118,7 +118,7 @@ export default function App() {
       
       {{
         "restaurant": isPro ? <AccueilPro /> : <Accueil onMap={onMap} location={location} />,
-        "star": (<Notes />),
+        "star": (<Notes userid={user._id} />),
         "favorite": (<Favoris />),
         "show-chart": <Suivi />,
         "school": <Formations />
