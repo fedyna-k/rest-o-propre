@@ -56,8 +56,8 @@ export default function Connect({page, pageSetter, proSetter, userSetter, onLayo
                 for (let user of res) {
                     if (user.email == total.email && user.password == total.password) {
                         userSetter(user);
-                        pageSetter("restaurant");
                         proSetter(false);
+                        pageSetter("restaurant");
                     }
                 }    
             })
@@ -68,8 +68,8 @@ export default function Connect({page, pageSetter, proSetter, userSetter, onLayo
                 for (let user of res) {
                     if (user.email == total.email && user.password == total.password) {
                         userSetter(user);
-                        pageSetter("restaurant");
                         proSetter(true);
+                        pageSetter("restaurant");
                     }
                 }    
             })
