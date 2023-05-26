@@ -12,7 +12,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 const background_img = require("../../assets/images/background_log.png");
 const logo = require("../../assets/images/adaptive-icon.png");
 
-export default function Connect({page, onLayout}) {
+export default function Connect({page, pageSetter, proSetter, userSetter, onLayout}) {
     const [step, setStep] = useState([""]);
     const [form, setForm] = useState(<></>);
     const [data, setData] = useState({});
@@ -43,6 +43,36 @@ export default function Connect({page, onLayout}) {
             Keyboard.dismiss();
             setStep(step.concat([next]));
         };
+    }
+
+    function connect_user() {
+        if (!total.email || !total.password) {
+            return;
+        }
+
+        fetch("http://139.124.41.188/clients")
+            .then(res => res.json())
+            .then(res => {
+                for (let user of res) {
+                    if (user.email == total.email && user.password == total.password) {
+                        userSetter(user);
+                        pageSetter("restaurant");
+                        proSetter(false);
+                    }
+                }    
+            })
+        
+        fetch("http://139.124.41.188/restos")
+            .then(res => res.json())
+            .then(res => {
+                for (let user of res) {
+                    if (user.email == total.email && user.password == total.password) {
+                        userSetter(user);
+                        pageSetter("restaurant");
+                        proSetter(true);
+                    }
+                }    
+            })
     }
 
     useEffect(() => {
@@ -232,7 +262,7 @@ export default function Connect({page, onLayout}) {
                             defaultValue: ""
                         }}/>
                     <NormalText>Mot de passe oublié ?</NormalText>
-                    <Button action={goToNext("user", ["email", "password"])} width="50%" text="Connexion"/>
+                    <Button action={connect_user} width="50%" text="Connexion"/>
                 </Form>)
             }
         }

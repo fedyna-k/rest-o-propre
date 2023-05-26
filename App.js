@@ -28,11 +28,12 @@ StatusBar.setStatusBarBackgroundColor("#f3f3f3")
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [page, setPage] = useState("restaurant");
+  const [page, setPage] = useState("connect");
   const [pageStack, setStack] = useState(["restaurant"]);
-  const [isPro, setIsPro] = useState(true);
+  const [isPro, setIsPro] = useState(false);
   const [onMap, setOnMap] = useState(false);
   const [location, setLocation] = useState(null);
+  const [user, setUser] = useState({});
 
 
   useEffect(() => {
@@ -96,7 +97,7 @@ export default function App() {
 
   if (page == "connect") {
     return (
-      <Connect page={page} onLayout={onLayoutRootView} />
+      <Connect page={page} pageSetter={setPage} userSetter={setUser} proSetter={setIsPro} onLayout={onLayoutRootView} />
     );
   }
 
@@ -106,11 +107,11 @@ export default function App() {
       onLayout={onLayoutRootView}>
       {isPro ?
         <HeaderPro
-          text={{"restaurant": "Bienvenue !", "show-chart": "Suivi", "school": "Formations", "person": "Mon compte"}[page]}
+          text={{"restaurant": `Bienvenue ${user.first_prop} !`, "show-chart": "Suivi", "school": "Formations", "person": user.name}[page]}
           includeSearch={page == "show-chart" || page == "school"}
           placeholder={{"show-chart": "Bilan financier, ajout aliment...", "school": "Respect de la qualité, dressage"}[page]} /> :
         <Header
-          text="Kevin FEDYNA"
+          text={`${user.first} ${user.last.toUpperCase()}`}
           includeMap={page == "restaurant" ? {onMap, setOnMap} : false}
           searchbarInside={!onMap} />
       }

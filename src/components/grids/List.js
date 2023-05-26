@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import Bloc from "./Bloc";
 
 const category_style = StyleSheet.create({
@@ -14,10 +14,18 @@ const category_style = StyleSheet.create({
     }
 });
 
+const images = [
+    require("../../../assets/images/back-1.jpg"),
+    require("../../../assets/images/back-2.jpg"),
+    require("../../../assets/images/back-3.jpg"),
+    require("../../../assets/images/back-4.jpg"),
+    require("../../../assets/images/back-5.jpg"),
+    require("../../../assets/images/back-6.jpg"),
+]
 
 export default function List({items, pageSetter}) {
     function createChild({item}) {
-        return (<Bloc style={category_style.bloc}></Bloc>);
+        return (<Bloc key={Math.random()} style={category_style.bloc} backgroundImage={images[item.type - 1]} note={item.note} text={item.name}></Bloc>);
     }
 
     return (
